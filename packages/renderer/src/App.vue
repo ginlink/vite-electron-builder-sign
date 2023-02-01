@@ -2,28 +2,55 @@
 import ReactiveCounter from '@/components/ReactiveCounter.vue';
 import ReactiveHash from '@/components/ReactiveHash.vue';
 import ElectronVersions from '@/components/ElectronVersions.vue';
-import {NButton} from 'naive-ui';
+import {NButton, NDatePicker} from 'naive-ui';
 import {darkTheme} from 'naive-ui';
 import {NConfigProvider, NGlobalStyle} from 'naive-ui';
 import {NThemeEditor} from 'naive-ui';
 import {useI18n} from 'vue-i18n';
 import {getNameLangInTs} from './utils/test';
+import {storeToRefs} from 'pinia';
+import useAppStore from './stores/app';
+import LangSelect from './components/LangSelect/LangSelect.vue';
+import {ref} from 'vue';
 const {t} = useI18n();
 
-const name = t('name');
-const name3 = getNameLangInTs();
+const name = () => t('name');
+
+const appStore = useAppStore();
+const {locale, dateLocale} = storeToRefs(appStore);
+
+const range = ref<[number, number]>([1183135260000, Date.now()]);
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 </script>
 
 <template>
-  <NConfigProvider :theme="darkTheme">
+  <NConfigProvider
+    :theme="darkTheme"
+    :locale="locale"
+    :date-locale="dateLocale"
+  >
     <NGlobalStyle />
     <NThemeEditor>
       <!-- 国际化 -->
-      <div>{{ name }}</div>
-      <div>{{ t('name2') }}</div>
-      <div>{{ name3 }}</div>
+      <div>
+        <div>
+          <LangSelect />
+        </div>
+        <div>
+          <div>{{ name() }}</div>
+          <div>{{ t('name2') }}</div>
+          <div>{{ getNameLangInTs() }}</div>
+        </div>
+
+        <!-- Naive国际化 -->
+        <NDatePicker
+          v-model:value="range"
+          type="datetimerange"
+          clearable
+        />
+        <pre>{{ JSON.stringify(range) }}</pre>
+      </div>
 
       <img
         alt="Vue logo"
@@ -71,6 +98,7 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
         Edit
         <code>packages/renderer/src/App.vue</code> to test hot module replacement.
       </p>
+      <!-- </NThemeEditor> -->
     </NThemeEditor>
   </NConfigProvider>
 </template>
