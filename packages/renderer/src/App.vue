@@ -12,12 +12,13 @@ import {storeToRefs} from 'pinia';
 import useAppStore from './stores/app';
 import LangSelect from './components/LangSelect/LangSelect.vue';
 import {ref} from 'vue';
+import ThemeSwitch from './components/ThemeSwitch/ThemeSwitch.vue';
 const {t} = useI18n();
 
 const name = () => t('name');
 
 const appStore = useAppStore();
-const {locale, dateLocale} = storeToRefs(appStore);
+const {locale, dateLocale, darkMode} = storeToRefs(appStore);
 
 const range = ref<[number, number]>([1183135260000, Date.now()]);
 
@@ -26,7 +27,7 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 
 <template>
   <NConfigProvider
-    :theme="darkTheme"
+    :theme="darkMode ? darkTheme : null"
     :locale="locale"
     :date-locale="dateLocale"
   >
@@ -50,6 +51,11 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
           clearable
         />
         <pre>{{ JSON.stringify(range) }}</pre>
+      </div>
+
+      <!-- 换肤 -->
+      <div>
+        <ThemeSwitch />
       </div>
 
       <img

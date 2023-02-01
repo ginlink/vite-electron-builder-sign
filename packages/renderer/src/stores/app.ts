@@ -2,15 +2,18 @@ import {defineStore} from 'pinia';
 import {zhCN, dateZhCN} from 'naive-ui';
 import {LANG_VALUE} from '@/common/enum';
 import {getLanguage} from '@/lang';
+import {getDarkMode} from '@/theme';
 
 interface IAppState {
   language: string;
+  darkMode: boolean;
   // ...
 }
 
 const useAppStore = defineStore('app', {
   state: (): IAppState => ({
     language: getLanguage(), // 默认值
+    darkMode: getDarkMode(),
     // ...
   }),
   getters: {
