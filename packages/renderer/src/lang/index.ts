@@ -1,7 +1,7 @@
 import {createI18n} from 'vue-i18n';
 import {LANG_VALUE} from '@/common/enum';
-import zhHans from './zh-Hans';
-import en from './en';
+import zhHans from './zh-Hans.json';
+import en from './en.json';
 import useAppStore from '@/stores/app';
 import {storeToRefs} from 'pinia';
 

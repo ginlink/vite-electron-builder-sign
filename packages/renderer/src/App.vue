@@ -2,10 +2,9 @@
 import ReactiveCounter from '@/components/ReactiveCounter.vue';
 import ReactiveHash from '@/components/ReactiveHash.vue';
 import ElectronVersions from '@/components/ElectronVersions.vue';
-import {NButton, NDatePicker} from 'naive-ui';
+import {NButton, NCard, NDatePicker, NDivider, NSpace} from 'naive-ui';
 import {darkTheme} from 'naive-ui';
 import {NConfigProvider, NGlobalStyle} from 'naive-ui';
-import {NThemeEditor} from 'naive-ui';
 import {useI18n} from 'vue-i18n';
 import {getNameLangInTs} from './utils/test';
 import {storeToRefs} from 'pinia';
@@ -32,80 +31,87 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
     :date-locale="dateLocale"
   >
     <NGlobalStyle />
-    <NThemeEditor>
-      <!-- 国际化 -->
-      <div>
-        <div>
-          <LangSelect />
-        </div>
-        <div>
-          <div>{{ name() }}</div>
-          <div>{{ t('name2') }}</div>
-          <div>{{ getNameLangInTs() }}</div>
-        </div>
 
-        <!-- Naive国际化 -->
-        <NDatePicker
-          v-model:value="range"
-          type="datetimerange"
-          clearable
-        />
-        <pre>{{ JSON.stringify(range) }}</pre>
-      </div>
+    <NSpace
+      vertical
+      :size="24"
+    >
+      <!-- 国际化 -->
+      <NCard title="国际化">
+        <div>
+          <div>
+            <LangSelect />
+          </div>
+          <div>
+            <div>{{ name() }}</div>
+            <div>{{ t('name2') }}</div>
+            <div>{{ getNameLangInTs() }}</div>
+          </div>
+
+          <!-- Naive国际化 -->
+          <NDatePicker
+            v-model:value="range"
+            type="datetimerange"
+            clearable
+          />
+          <pre>{{ JSON.stringify(range) }}</pre>
+        </div>
+      </NCard>
 
       <!-- 换肤 -->
-      <div>
+      <NCard title="换肤">
         <ThemeSwitch />
-      </div>
+      </NCard>
+    </NSpace>
 
-      <img
-        alt="Vue logo"
-        src="../assets/logo.svg"
-        width="150"
-      />
+    <NDivider />
 
-      <p>
-        <!-- Example how to inject current app version to UI -->
-        App version: {{ APP_VERSION }}
-      </p>
+    <img
+      alt="Vue logo"
+      src="../assets/logo.svg"
+      width="150"
+    />
 
-      <div>
-        <NButton type="primary">naive-ui</NButton>
-      </div>
+    <p>
+      <!-- Example how to inject current app version to UI -->
+      App version: {{ APP_VERSION }}
+    </p>
 
-      <p>
-        For a guide and recipes on how to configure / customize this project,<br />
-        check out the
-        <a
-          href="https://github.com/cawa-93/vite-electron-builder"
-          target="_blank"
-        >
-          vite-electron-builder documentation
-        </a>
-        .
-      </p>
+    <div>
+      <NButton type="primary">naive-ui</NButton>
+    </div>
 
-      <fieldset>
-        <legend>Test Vue Reactivity</legend>
-        <reactive-counter />
-      </fieldset>
+    <p>
+      For a guide and recipes on how to configure / customize this project,<br />
+      check out the
+      <a
+        href="https://github.com/cawa-93/vite-electron-builder"
+        target="_blank"
+      >
+        vite-electron-builder documentation
+      </a>
+      .
+    </p>
 
-      <fieldset>
-        <legend>Test Node.js API</legend>
-        <reactive-hash />
-      </fieldset>
+    <fieldset>
+      <legend>Test Vue Reactivity</legend>
+      <reactive-counter />
+    </fieldset>
 
-      <fieldset>
-        <legend>Environment</legend>
-        <electron-versions />
-      </fieldset>
+    <fieldset>
+      <legend>Test Node.js API</legend>
+      <reactive-hash />
+    </fieldset>
 
-      <p>
-        Edit
-        <code>packages/renderer/src/App.vue</code> to test hot module replacement.
-      </p>
-      <!-- </NThemeEditor> -->
-    </NThemeEditor>
+    <fieldset>
+      <legend>Environment</legend>
+      <electron-versions />
+    </fieldset>
+
+    <p>
+      Edit
+      <code>packages/renderer/src/App.vue</code> to test hot module replacement.
+    </p>
   </NConfigProvider>
 </template>
 

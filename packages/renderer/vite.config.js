@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import {renderer} from 'unplugin-auto-expose';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -48,6 +49,11 @@ const config = {
       preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
     }),
     injectAppVersion(),
+    VueI18nPlugin({
+      // fix: CSP error
+      // https://vue-i18n.intlify.dev/guide/advanced/optimization.html
+      include: join(PACKAGE_ROOT, './src/lang/**'),
+    }),
   ],
 };
 
