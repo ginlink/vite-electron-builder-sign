@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import ReactiveCounter from '/@/components/ReactiveCounter.vue';
-import ReactiveHash from '/@/components/ReactiveHash.vue';
-import ElectronVersions from '/@/components/ElectronVersions.vue';
+import ReactiveCounter from '@/components/ReactiveCounter.vue';
+import ReactiveHash from '@/components/ReactiveHash.vue';
+import ElectronVersions from '@/components/ElectronVersions.vue';
 import {NButton} from 'naive-ui';
 import {darkTheme} from 'naive-ui';
 import {NConfigProvider, NGlobalStyle} from 'naive-ui';
 import {NThemeEditor} from 'naive-ui';
+import {useI18n} from 'vue-i18n';
+import {getNameLangInTs} from './utils/test';
+const {t} = useI18n();
+
+const name = t('name');
+const name3 = getNameLangInTs();
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 </script>
@@ -14,6 +20,11 @@ const APP_VERSION = import.meta.env.VITE_APP_VERSION;
   <NConfigProvider :theme="darkTheme">
     <NGlobalStyle />
     <NThemeEditor>
+      <!-- 国际化 -->
+      <div>{{ name }}</div>
+      <div>{{ t('name2') }}</div>
+      <div>{{ name3 }}</div>
+
       <img
         alt="Vue logo"
         src="../assets/logo.svg"
