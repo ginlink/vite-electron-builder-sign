@@ -20,7 +20,8 @@ defaults:
 
 jobs:
   draft_release:
-    permissions: write-all
+    permissions:
+      contents: write
 
     strategy:
       fail-fast: true
