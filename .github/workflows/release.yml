@@ -8,21 +8,18 @@ on:
         required: false
         type: boolean
 
+permissions: read-all|write-all
+
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: true
-
 
 defaults:
   run:
     shell: 'bash'
 
-
 jobs:
   draft_release:
-    permissions:
-      contents: write
-
     strategy:
       fail-fast: true
       matrix:
