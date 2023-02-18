@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ macos-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
 
@@ -54,7 +54,7 @@ jobs:
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing
-          # CSC_LINK: ''
-          # CSC_KEY_PASSWORD: ''
+          CSC_LINK: 'root.pfx'
+          CSC_KEY_PASSWORD: 'zhaojun'
           # Publishing artifacts
           GH_TOKEN: ${{ secrets.github_token }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
